@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select a Table | Essence Restaurant</title>
+  <meta name="description" content="Choose your preferred table at Essence Restaurant. View and update table status in real time.">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tables.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <img class="bg-fixed" src="wallpaperflare.com_wallpaper (49).jpg" alt=""/>
+
+  <header>
+    <a href="index.html" class="logo"><i class='bx bxs-home'></i>Essence</a>
+    <ul class="navlist">
+      <li class="nav-list"><a href="index.html">HOME</a></li>
+      <li class="nav-list"><a href="menu.html">MENU</a></li>
+      <li class="nav-list"><a href="about.html">ABOUT US</a></li>
+      <li class="nav-list"><a href="location.html">HOURS & LOCATION</a></li>
+      <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
+      <li class="nav-list"><a href="tables.html" class="active">TABLES</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="cart.html" style="position:relative; display:flex; align-items:center;">
+        <i class='bx bxs-cart bx-tada'></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </a>
+    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <section class="tables-section">
+
+    <div class="tables-header">
+      <div>
+        <h1 class="tables-title">Our Tables</h1>
+        <p class="tables-sub" id="tables-sub">10 tables total</p>
+      </div>
+      <button class="reset-btn" id="reset-btn" title="Reset all tables to default">
+        <i class='bx bx-reset'></i> Reset All
+      </button>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary-cards">
+      <div class="summary-card available-card" data-filter="available" style="cursor:pointer;">
+        <span class="summary-number" id="count-available">0</span>
+        <span class="summary-label">Available</span>
+      </div>
+      <div class="summary-card occupied-card" data-filter="occupied" style="cursor:pointer;">
+        <span class="summary-number" id="count-occupied">0</span>
+        <span class="summary-label">Occupied</span>
+      </div>
+      <div class="summary-card reserved-card" data-filter="reserved" style="cursor:pointer;">
+        <span class="summary-number" id="count-reserved">0</span>
+        <span class="summary-label">Reserved</span>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="available">Available</button>
+      <button class="filter-btn" data-filter="occupied">Occupied</button>
+      <button class="filter-btn" data-filter="reserved">Reserved</button>
+    </div>
+
+    <!-- Tables grid -->
+    <div class="tables-grid" id="tables-grid"></div>
+
+    <!-- Selected table banner -->
+    <div class="selected-banner" id="selected-banner" style="display:none;">
+      <div class="selected-info">
+        <i class='bx bxs-check-circle'></i>
+        <span id="selected-text">Table selected</span>
+      </div>
+      <a href="booking.html" class="reserve-btn">Reserve This Table →</a>
+    </div>
+
+  </section>
+
+  <!-- Status change toast -->
+  <div class="status-toast" id="status-toast"></div>
+
+  <script>
+    // ── Default table data ────────────────────────────────────────
+    const DEFAULT_TABLES = [
+      { id: "T1",  seats: 2, status: "available" },
+      { id: "T2",  seats: 2, status: "available" },
+      { id: "T3",  seats: 4, status: "reserved"  },
+      { id: "T4",  seats: 4, status: "available" },
+      { id: "T5",  seats: 4, status: "available" },
+      { id: "T6",  seats: 4, status: "available" },
+      { id: "T7",  seats: 6, status: "occupied"  },
+      { id: "T8",  seats: 6, status: "available" },
+      { id: "T9",  seats: 8, status: "reserved"  },
+      { id: "T10", seats: 8, status: "available" },
+    ];
+
+    const STATUS_CONFIG = {
+      available: { label: "Available", icon: "bx-check-circle"  },
+      occupied:  { label: "Occupied",  icon: "bx-block"         },
+      reserved:  { label: "Reserved",  icon: "bx-time-five"     },
+    };
+
+    // ── Load tables from localStorage or use defaults ─────────────
+    function loadTables() {
+      const saved = localStorage.getItem("essenceTables");
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) {}
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_TABLES)); // deep copy
+    }
+
+    function saveTables() {
+      localStorage.setItem("essenceTables", JSON.stringify(tables));
+    }
+
+    let tables = loadTables();
+    let selectedTableId = null;
+    let currentFilter   = "all";
+
+    // ── Change a table's status ───────────────────────────────────
+    function changeStatus(tableId, newStatus) {
+      const table = tables.find(t => t.id === tableId);
+      if (!table) return;
+
+      const oldStatus = table.status;
+      table.status = newStatus;
+      saveTables();
+
+      // If this table was selected and it's no longer available, deselect it
+      if (selectedTableId === tableId && newStatus !== "available") {
+        selectedTableId = null;
+        localStorage.removeItem("selectedTable");
+        document.getElementById("selected-banner").style.display = "none";
+      }
+
+      showToast(`${tableId} changed from ${oldStatus} → ${newStatus}`);
+      updateCounts();
+      renderTables();
+    }
+
+    // ── Select / deselect a table (only available ones) ───────────
+    function selectTable(id, seats) {
+      const table = tables.find(t => t.id === id);
+      if (!table || table.status !== "available") return;
+
+      selectedTableId = selectedTableId === id ? null : id;
+
+      const banner = document.getElementById("selected-banner");
+      const text   = document.getElementById("selected-text");
+
+      if (selectedTableId) {
+        text.textContent = `Table ${id} selected — ${seats} seats`;
+        banner.style.display = "flex";
+        localStorage.setItem("selectedTable", JSON.stringify({ id, seats }));
+      } else {
+        banner.style.display = "none";
+        localStorage.removeItem("selectedTable");
+      }
+
+      renderTables();
+    }
+
+    // ── Render all table cards ────────────────────────────────────
+    function renderTables() {
+      const grid = document.getElementById("tables-grid");
+      const filtered = currentFilter === "all"
+        ? tables
+        : tables.filter(t => t.status === currentFilter);
+
+      grid.innerHTML = "";
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p class="no-tables">No tables in this category.</p>`;
+        return;
+      }
+
+      filtered.forEach(table => {
+        const cfg        = STATUS_CONFIG[table.status];
+        const isAvail    = table.status === "available";
+        const isSelected = selectedTableId === table.id;
+
+        const card = document.createElement("div");
+        card.className = [
+          "table-card",
+          `status-${table.status}`,
+          isSelected ? "selected" : "",
+        ].join(" ").trim();
+
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="table-id">${table.id}</span>
+            <span class="status-badge badge-${table.status}">
+              <i class='bx ${cfg.icon}'></i> ${cfg.label}
+            </span>
+          </div>
+
+          <div class="seat-info">
+            <i class='bx bxs-user-account'></i> ${table.seats} seats
+          </div>
+
+          <!-- Status dropdown — anyone can change it -->
+          <div class="status-dropdown-wrap">
+            <label class="dropdown-label">Change status</label>
+            <div class="custom-select status-${table.status}">
+              <select class="status-select" data-id="${table.id}">
+                <option value="available" ${table.status === "available" ? "selected" : ""}>Available</option>
+                <option value="occupied"  ${table.status === "occupied"  ? "selected" : ""}>Occupied</option>
+                <option value="reserved"  ${table.status === "reserved"  ? "selected" : ""}>Reserved</option>
+              </select>
+              <i class='bx bx-chevron-down select-arrow'></i>
+            </div>
+          </div>
+
+          ${isAvail ? `
+            <button class="select-btn ${isSelected ? "selected-btn" : ""}"
+                    data-id="${table.id}" data-seats="${table.seats}">
+              ${isSelected ? "<i class='bx bxs-check-circle'></i> Selected" : "Select This Table"}
+            </button>
+          ` : `
+            <div class="unavailable-note">
+              <i class='bx ${cfg.icon}'></i>
+              ${table.status === "occupied" ? "Currently occupied" : "Already reserved"}
+            </div>
+          `}
+        `;
+
+        // Select button click
+        if (isAvail) {
+          card.querySelector(".select-btn").addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectTable(table.id, table.seats);
+          });
+        }
+
+        // Dropdown change — stop propagation so card click doesn't fire
+        card.querySelector(".status-select").addEventListener("change", (e) => {
+          e.stopPropagation();
+          changeStatus(table.id, e.target.value);
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    // ── Update summary counts ─────────────────────────────────────
+    function updateCounts() {
+      document.getElementById("count-available").textContent =
+        tables.filter(t => t.status === "available").length;
+      document.getElementById("count-occupied").textContent =
+        tables.filter(t => t.status === "occupied").length;
+      document.getElementById("count-reserved").textContent =
+        tables.filter(t => t.status === "reserved").length;
+    }
+
+    // ── Toast notification ────────────────────────────────────────
+    function showToast(msg) {
+      const toast = document.getElementById("status-toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    // ── Filter tabs ───────────────────────────────────────────────
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        currentFilter = this.dataset.filter;
+        renderTables();
+      });
+    });
+
+    // Clicking summary cards also filters
+    document.querySelectorAll(".summary-card[data-filter]").forEach(card => {
+      card.addEventListener("click", function () {
+        const f = this.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach(b => {
+          b.classList.toggle("active", b.dataset.filter === f);
+        });
+        currentFilter = f;
+        renderTables();
+      });
+    });
+
+    // ── Reset all to default ──────────────────────────────────────
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      if (!confirm("Reset all tables to their default status?")) return;
+      tables = JSON.parse(JSON.stringify(DEFAULT_TABLES));
+      saveTables();
+      selectedTableId = null;
+      localStorage.removeItem("selectedTable");
+      document.getElementById("selected-banner").style.display = "none";
+      currentFilter = "all";
+      document.querySelectorAll(".filter-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.filter === "all");
+      });
+      updateCounts();
+      renderTables();
+      showToast("All tables reset to default");
+    });
+
+    // ── Cart badge ────────────────────────────────────────────────
+    function updateCartBadge() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const total = cartItems.reduce((sum, i) => sum + (i.quantity || 1), 0);
+      const badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'flex' : 'none';
+      }
+    }
+
+    // ── Sticky header ─────────────────────────────────────────────
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('sticky', window.scrollY > 0);
+    });
+
+    // ── Init ──────────────────────────────────────────────────────
+    updateCounts();
+    renderTables();
+    updateCartBadge();
+  </script>
+
+</body>
+</html>
