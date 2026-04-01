@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Essence Restaurant</title>
+  <meta name="description" content="Learn about Essence Restaurant — our story, our team, and our passion for globally-inspired cuisine.">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <img style="position: fixed; z-index: 0; top:0; left:0; width:100%; height:100%; object-fit:cover;" src="wallpaperflare.com_wallpaper (49).jpg" alt=""/>
+
+  <header>
+    <a href="index.html" class="logo"><i class='bx bxs-home'></i>Essence</a>
+    <ul class="navlist">
+        <li class="nav-list"><a href="index.html">HOME</a></li>
+        <li class="nav-list"><a href="menu.html">MENU</a></li>
+        <li class="nav-list"><a href="about.html" class="active">ABOUT US</a></li>
+        <li class="nav-list"><a href="location.html">HOURS & LOCATION</a></li>
+        <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
+    </ul>
+    <div class="nav-icons">
+        <a href="cart.html" style="position:relative; display:flex; align-items:center;">
+            <i class='bx bxs-cart bx-tada'></i>
+            <span class="cart-badge" id="cart-count">0</span>
+        </a>
+    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <section class="about">
+    <div class="about-wrapper">
+
+      <!-- Our Story -->
+      <div class="about-card">
+        <h2>Our Story</h2>
+        <p>Essence was born from a simple belief: that great food has the power to bring people together. We opened our doors with a vision to create a space where every guest feels genuinely welcomed — not just served.</p>
+        <p>Nestled in the heart of Brooklyn Heights, our restaurant blends the warmth of rustic decor with the excitement of globally-inspired cuisine. From the very first day, we committed ourselves to sourcing fresh, local, and seasonal ingredients — building lasting relationships with farmers and producers who share our values.</p>
+        <p>Every dish on our menu is crafted with precision and passion. Whether you're joining us for a quiet weekday lunch or a celebratory dinner, we want your time at Essence to be memorable — a journey of flavours that stays with you long after the meal is over.</p>
+      </div>
+
+      <!-- Our Values -->
+      <div class="about-card values-card">
+        <h2>What We Stand For</h2>
+        <div class="values-grid">
+          <div class="value-item">
+            <i class='bx bxs-leaf'></i>
+            <h4>Farm to Table</h4>
+            <p>We partner with local farmers to bring the freshest seasonal ingredients to your plate.</p>
+          </div>
+          <div class="value-item">
+            <i class='bx bxs-heart'></i>
+            <h4>Made with Love</h4>
+            <p>Every recipe is crafted with care — using techniques passed down and refined over years.</p>
+          </div>
+          <div class="value-item">
+            <i class='bx bxs-group'></i>
+            <h4>Community First</h4>
+            <p>We believe in giving back to the neighbourhood that has supported us from day one.</p>
+          </div>
+          <div class="value-item">
+            <i class='bx bxs-star'></i>
+            <h4>Quality Always</h4>
+            <p>No shortcuts. Every dish meets our high standard before it reaches your table.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Team -->
+      <div class="about-card">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="team-avatar"><i class='bx bxs-user'></i></div>
+            <h3>Arjun Mehta</h3>
+            <h4>Head Chef & Co-Founder</h4>
+            <p>With over 15 years in professional kitchens across Mumbai and New York, Arjun brings bold flavours and refined technique to every dish at Essence.</p>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar"><i class='bx bxs-user'></i></div>
+            <h3>Priya Sharma</h3>
+            <h4>Pastry Chef</h4>
+            <p>Priya's desserts are the talk of Brooklyn. Her chocolate pastry and signature cakes have earned Essence a loyal following of sweet-toothed regulars.</p>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar"><i class='bx bxs-user'></i></div>
+            <h3>Rahul Verma</h3>
+            <h4>Restaurant Manager</h4>
+            <p>Rahul ensures every visit to Essence is seamless and memorable — from your reservation to the final farewell at the door.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function updateCartBadge() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const total = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const badge = document.getElementById('cart-count');
+        if (badge) {
+            badge.textContent = total;
+            badge.style.display = total > 0 ? 'flex' : 'none';
+        }
+    }
+    updateCartBadge();
+  </script>
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('sticky', window.scrollY > 0);
+    });
+  </script>
+</body>
+</html>

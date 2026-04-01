@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hours & Location | Essence Restaurant</title>
+  <meta name="description" content="Find Essence Restaurant at 555 Brooklyn Heights. Open daily 11AM–10PM (11PM on weekends).">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="location.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo"><i class='bx bxs-home'></i>Essence</a>
+    <ul class="navlist">
+        <li class="nav-list"><a href="index.html">HOME</a></li>
+        <li class="nav-list"><a href="menu.html">MENU</a></li>
+        <li class="nav-list"><a href="about.html">ABOUT US</a></li>
+        <li class="nav-list"><a href="location.html" class="active">HOURS & LOCATION</a></li>
+        <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
+    </ul>
+    <div class="nav-icons">
+        <a href="cart.html" style="position:relative; display:flex; align-items:center;">
+            <i class='bx bxs-cart bx-tada'></i>
+            <span class="cart-badge" id="cart-count">0</span>
+        </a>
+    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <section class="hours-location">
+    <div class="container">
+
+      <!-- Left column: Hours + Contact -->
+      <div class="info-column">
+
+        <div class="info-card">
+          <h2><i class='bx bx-time-five'></i> Opening Hours</h2>
+          <ul class="timings">
+            <li><span class="day">Monday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+            <li><span class="day">Tuesday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+            <li><span class="day">Wednesday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+            <li><span class="day">Thursday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+            <li class="weekend"><span class="day">Friday</span><span class="time">11:00 AM – 11:00 PM</span></li>
+            <li class="weekend"><span class="day">Saturday</span><span class="time">11:00 AM – 11:00 PM</span></li>
+            <li class="weekend"><span class="day">Sunday</span><span class="time">11:00 AM – 11:00 PM</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h2><i class='bx bx-map-pin'></i> Address</h2>
+          <p class="address-text">555, Brooklyn Heights<br>Brooklyn, New York</p>
+          <a href="https://maps.google.com" target="_blank" rel="noopener" class="directions-btn">
+            <i class='bx bx-navigation'></i> Get Directions
+          </a>
+        </div>
+
+        <div class="info-card">
+          <h2><i class='bx bx-phone'></i> Contact Us</h2>
+          <p><a href="tel:7587534404" class="contact-link"><i class='bx bxs-phone'></i> 7587534404</a></p>
+          <p><a href="booking.html" class="contact-link"><i class='bx bxs-calendar'></i> Reserve a Table</a></p>
+        </div>
+
+      </div>
+
+      <!-- Right column: Map -->
+      <div class="map-column">
+        <h2><i class='bx bx-map'></i> Find Us</h2>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.267886578695!2d-73.99734492346066!3d40.69601087139369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a4c8e3d8f4d%3A0x1234abcd!2sBrooklyn%20Heights%2C%20Brooklyn%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000"
+            width="100%"
+            height="100%"
+            style="border:0; border-radius: 12px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Essence Restaurant Location Map"
+          ></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function updateCartBadge() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const total = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const badge = document.getElementById('cart-count');
+        if (badge) {
+            badge.textContent = total;
+            badge.style.display = total > 0 ? 'flex' : 'none';
+        }
+    }
+    updateCartBadge();
+  </script>
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('sticky', window.scrollY > 0);
+    });
+  </script>
+</body>
+</html>

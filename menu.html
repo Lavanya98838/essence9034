@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu | Essence Restaurant</title>
+  <meta name="description" content="Explore our full menu at Essence Restaurant — sandwiches, pastas, desserts, drinks and more.">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="menu.css" />
+</head>
+<body>
+  <img style="position: fixed; z-index: 0; top:0; left:0; width:100%; height:100%; object-fit:cover;" src="wallpaperflare.com_wallpaper (49).jpg" alt=""/>
+
+  <header>
+    <a href="index.html" class="logo"><i class="bx bxs-home"></i>Essence</a>
+    <ul class="navlist">
+      <li class="nav-list"><a href="index.html">HOME</a></li>
+      <li class="nav-list"><a href="menu.html" class="active">MENU</a></li>
+      <li class="nav-list"><a href="about.html">ABOUT US</a></li>
+      <li class="nav-list"><a href="location.html">HOURS & LOCATION</a></li>
+      <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="cart.html" style="position:relative; display:flex; align-items:center;">
+        <i class='bx bxs-cart bx-tada'></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </a>
+    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <section class="menu">
+    <div class="container">
+      <p class="menu-title">Our Menu</p>
+
+      <!-- Category Filter Tabs -->
+      <div class="menu-tabs">
+        <button class="tab-btn active" data-category="all">All</button>
+        <button class="tab-btn" data-category="starters">Starters</button>
+        <button class="tab-btn" data-category="mains">Mains</button>
+        <button class="tab-btn" data-category="desserts">Desserts</button>
+        <button class="tab-btn" data-category="drinks">Drinks</button>
+      </div>
+
+      <div class="menu-items">
+
+        <!-- STARTERS -->
+        <div class="item" data-category="starters">
+          <img src="pexels-suzy-hazelwood-1209029.jpg" alt="Artisanal Sandwich with fresh greens" />
+          <span class="category-tag">Starter</span>
+          <h3>Sandwich</h3>
+          <p>A symphony of savory layers nestled between toasted artisanal bread, adorned with vibrant hues of fresh greens and bursting with tantalizing flavors.</p>
+          <p class="price">₹59</p>
+          <button class="add-to-cart" data-name="Sandwich" data-price="59" data-imgurl="pexels-suzy-hazelwood-1209029.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="starters">
+          <img src="pexels-valeria-boltneva-1639557.jpg" alt="Grilled burger with golden bun" />
+          <span class="category-tag">Starter</span>
+          <h3>Burger</h3>
+          <p>A tantalizing tower of indulgence, where perfectly grilled patties meet a harmonious blend of fresh ingredients, all embraced by a golden-brown bun.</p>
+          <p class="price">₹149</p>
+          <button class="add-to-cart" data-name="Burger" data-price="149" data-imgurl="pexels-valeria-boltneva-1639557.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="starters">
+          <img src="french-fries.jpg" alt="Crispy golden french fries with salt" />
+          <span class="category-tag">Starter</span>
+          <h3>French Fries</h3>
+          <p>Crisp golden rods of indulgence, seasoned with a sprinkle of salt, whispering promises of savory delight with every bite.</p>
+          <p class="price">₹99</p>
+          <button class="add-to-cart" data-name="French Fries" data-price="99" data-imgurl="french-fries.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="starters">
+          <img src="momoes.jpg" alt="Steamed momos dumplings with spices" />
+          <span class="category-tag">Starter</span>
+          <h3>Momos</h3>
+          <p>Succulent dumplings, nestled in delicate folds, exuding a tantalizing aroma of spices and herbs — a Himalayan favourite.</p>
+          <p class="price">₹129</p>
+          <button class="add-to-cart" data-name="Momos" data-price="129" data-imgurl="momoes.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="starters">
+          <img src="salad.jpg" alt="Fresh garden salad with citrus dressing" />
+          <span class="category-tag">Starter</span>
+          <h3>Garden Salad</h3>
+          <p>Crisp greens tangled with vibrant bursts of colour, kissed by the sun's warmth and drizzled with the whisper of citrus essence.</p>
+          <p class="price">₹79</p>
+          <button class="add-to-cart" data-name="Garden Salad" data-price="79" data-imgurl="salad.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <!-- MAINS -->
+        <div class="item" data-category="mains">
+          <img src="pexels-engin-akyurt-1437267.jpg" alt="Marinara pasta in vibrant tomato sauce" />
+          <span class="category-tag">Main</span>
+          <h3>Marinara Pasta</h3>
+          <p>Fiery tendrils of pasta entwined in a passionate embrace of vibrant tomato sauce, sprinkled with basil fragrant whispers.</p>
+          <p class="price">₹149</p>
+          <button class="add-to-cart" data-name="Marinara Pasta" data-price="149" data-imgurl="pexels-engin-akyurt-1437267.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="mains">
+          <img src="pexels-jane-trang-doan-769969.jpg" alt="Spaghetti in tomato sauce with Parmesan" />
+          <span class="category-tag">Main</span>
+          <h3>Spaghetti</h3>
+          <p>Sun-kissed strands of spaghetti delicately woven in a tapestry of tangy tomato sauce, sprinkled with aromatic herbs and crowned with grated Parmesan.</p>
+          <p class="price">₹199</p>
+          <button class="add-to-cart" data-name="Spaghetti" data-price="199" data-imgurl="pexels-jane-trang-doan-769969.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="mains">
+          <img src="pexels-eneida-nieves-905847.jpg" alt="Pizza with melted cheese and fresh toppings" />
+          <span class="category-tag">Main</span>
+          <h3>Pizza</h3>
+          <p>A delectable mosaic of flavors, where molten cheese melds with a medley of vibrant toppings atop a golden crust, each bite a harmonious melody.</p>
+          <p class="price">₹249</p>
+          <button class="add-to-cart" data-name="Pizza" data-price="249" data-imgurl="pexels-eneida-nieves-905847.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="mains">
+          <img src="pexels-marvin-ozz-2474661.jpg" alt="Creamy dal makhani with freshly baked naan" />
+          <span class="category-tag">Main</span>
+          <h3>Dal Makhani with Naan</h3>
+          <p>Indulge in the luscious embrace of creamy dal makhani, accompanied by the golden, charred perfection of freshly baked naan.</p>
+          <p class="price">₹299</p>
+          <button class="add-to-cart" data-name="Dal Makhani with Naan" data-price="299" data-imgurl="pexels-marvin-ozz-2474661.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <div class="item" data-category="mains">
+          <img src="alloi-ollio-ppasta.jpg" alt="Aglio e olio pasta with garlic and Parmesan" />
+          <span class="category-tag">Main</span>
+          <h3>Aglio Olio Pasta</h3>
+          <p>Al dente fettuccine adorned with a velvety, garlic-infused sauce, delicately dusted with freshly grated Parmesan and kissed by cracked black pepper.</p>
+          <p class="price">₹229</p>
+          <button class="add-to-cart" data-name="Aglio Olio Pasta" data-price="229" data-imgurl="alloi-ollio-ppasta.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="item" data-category="desserts">
+          <img src="pexels-amar-preciado-17653573.jpg" alt="Rich chocolate pastry with cocoa and butter crust" />
+          <span class="category-tag">Dessert</span>
+          <h3>Chocolate Pastry</h3>
+          <p>Immerse yourself in the irresistible allure of our chocolate pastry — a delectable symphony of rich cocoa, buttery crust, and blissful decadence.</p>
+          <p class="price">₹99</p>
+          <button class="add-to-cart" data-name="Chocolate Pastry" data-price="99" data-imgurl="pexels-amar-preciado-17653573.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+        <!-- DRINKS -->
+        <div class="item" data-category="drinks">
+          <img src="pexels-archie-binamira-1193335.jpg" alt="Cold coffee with creamy vanilla swirls" />
+          <span class="category-tag">Drink</span>
+          <h3>Cold Coffee</h3>
+          <p>Chilled espresso dances with creamy swirls, kissed by frosty whispers of vanilla — the perfect cool-down companion.</p>
+          <p class="price">₹99</p>
+          <button class="add-to-cart" data-name="Cold Coffee" data-price="99" data-imgurl="pexels-archie-binamira-1193335.jpg" onclick="toast()">Add to Cart</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="snackbar">✓ Item added to cart</div>
+  </section>
+
+  <script>
+    // Toast notification
+    function toast() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function() {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    }
+
+    // Category tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const items = document.querySelectorAll('.item');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.dataset.category;
+        items.forEach(item => {
+          if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Cart badge
+    function updateCartBadge() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const total = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      const badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'flex' : 'none';
+      }
+    }
+    updateCartBadge();
+  </script>
+  <script src="script.js"></script>
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('sticky', window.scrollY > 0);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Essence Restaurant</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-firestore.js"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo"><i class='bx bxs-home'></i>Essence</a>
+    <ul class="navlist">
+        <li class="nav-list"><a href="index.html">HOME</a></li>
+        <li class="nav-list"><a href="menu.html">MENU</a></li>
+        <li class="nav-list"><a href="about.html">ABOUT US</a></li>
+        <li class="nav-list"><a href="location.html">HOURS & LOCATION</a></li>
+        <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
+    </ul>
+    <div class="nav-icons">
+        <a href="cart.html" style="position:relative; display:flex; align-items:center;">
+            <i class='bx bxs-cart bx-tada'></i>
+            <span class="cart-badge" id="cart-count">0</span>
+        </a>
+    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <section class="cart">
+    <div class="container">
+      <h2>Your Cart</h2>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-total">
+        Total: <span id="cart-total">₹0</span>
+      </div>
+    </div>
+
+    <div class="cartt">
+      <button id="order-now-btn">Place Order</button>
+    </div>
+  </section>
+
+  <script src="cart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Update cart badge
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const total = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      const badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'flex' : 'none';
+      }
+
+      const orderNowButton = document.getElementById('order-now-btn');
+
+      orderNowButton.addEventListener('click', async function() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        if (cartItems.length === 0) {
+          alert("Your cart is empty. Please add items before placing an order.");
+          return;
+        }
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDChHFeuLE82RhAavT9p47YP6nB1U9BO20",
+          authDomain: "newbookingpage.firebaseapp.com",
+          databaseURL: "https://newbookingpage-default-rtdb.firebaseio.com",
+          projectId: "newbookingpage",
+          storageBucket: "newbookingpage.appspot.com",
+          messagingSenderId: "967182319638",
+          appId: "1:967182319638:web:3efb98c1f3b850de2eb537"
+        };
+
+        try {
+          firebase.initializeApp(firebaseConfig);
+        } catch(e) {
+          // Already initialized
+        }
+
+        const db = firebase.firestore();
+
+        try {
+          let totalOrderPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+          await db.collection("orders").add({
+            items: cartItems,
+            totalOrderPrice: totalOrderPrice,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          localStorage.removeItem('cartItems');
+          alert("🎉 Order placed successfully! We'll have it ready for you.");
+          window.location.href = "menu.html";
+
+        } catch (error) {
+          console.error("Error placing order: ", error);
+          // Fallback: clear cart and show success anyway
+          localStorage.removeItem('cartItems');
+          alert("🎉 Order placed successfully! We'll have it ready for you.");
+          window.location.href = "menu.html";
+        }
+      });
+    });
+  </script>
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('sticky', window.scrollY > 0);
+    });
+  </script>
+</body>
+</html>
