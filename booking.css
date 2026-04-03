@@ -322,3 +322,26 @@ button:hover {
 .change-table-link:hover {
   color: #f0b40a;
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — booking.css
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .booking { padding: 100px 16px 40px; }
+  .container {
+    width: 100%;
+    padding: 0 4px;
+  }
+  h2 { font-size: 1.6rem; }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  button { font-size: 15px; padding: 13px; }
+}
+
+@media (max-width: 480px) {
+  .booking { padding: 90px 12px 30px; }
+  h2 { font-size: 1.4rem; }
+}

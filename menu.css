@@ -35,8 +35,12 @@ header {
 }
 
 header.sticky {
-  padding: 12px 14%;
-  background: var(--other-color);
+    padding: 12px 14%;
+    background: rgba(17, 17, 17, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .logo {
@@ -310,4 +314,56 @@ header.sticky {
 @keyframes fadeout {
   from { bottom: 30px; opacity: 1; }
   to   { bottom: 10px; opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — menu.css
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .menu-items {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
+    column-gap: 24px;
+    row-gap: 30px;
+  }
+  .item { width: 100%; }
+  .menu-tabs { gap: 8px; }
+}
+
+@media (max-width: 768px) {
+  .menu { padding: 100px 0 40px; }
+  .menu-title { font-size: 32px; margin-bottom: 10px; }
+  .menu-tabs {
+    padding: 0 16px;
+    gap: 8px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .menu-items {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+    row-gap: 24px;
+  }
+  .item {
+    width: 100%;
+    height: auto;
+    padding-bottom: 60px;
+  }
+  .item img {
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-title { font-size: 26px; }
+  .item { padding: 16px 16px 56px; }
 }

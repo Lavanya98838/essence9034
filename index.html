@@ -6,6 +6,7 @@
     <title>Essence — Fine Dining Restaurant</title>
     <meta name="description" content="Essence Restaurant — A wonderful dining experience with globally-inspired cuisine. Book your table today at 555 Brooklyn Heights.">
     <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,7 +61,7 @@
             <li class="nav-list"><a href="about.html">ABOUT US</a></li>
             <li class="nav-list"><a href="location.html">HOURS & LOCATION</a></li>
             <li class="nav-list"><a href="booking.html">RESERVATION</a></li>
-            <li class="nav-list"><a href="tables.html">TABLES</a></li>
+      <li class="nav-list"><a href="tables.html">TABLES</a></li>
         </ul>
         <div class="nav-icons">
             <a href="cart.html" style="position:relative; display:flex; align-items:center;">
@@ -177,5 +178,25 @@
         }
         updateCartBadge();
     </script>
+
+  <script>
+    // Hamburger menu toggle
+    const menuIcon = document.getElementById('menu-icon');
+    const navList  = document.querySelector('.navlist');
+    if (menuIcon && navList) {
+      menuIcon.addEventListener('click', () => {
+        navList.classList.toggle('open');
+        menuIcon.classList.toggle('bx-x');
+      });
+      // Close menu when a nav link is clicked
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('open');
+          menuIcon.classList.remove('bx-x');
+        });
+      });
+    }
+  </script>
+
 </body>
 </html>

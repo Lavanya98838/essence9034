@@ -465,3 +465,51 @@ body {
 .summary-card[data-filter]:hover {
   border-color: rgba(231,168,9,0.4);
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — tables.css
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .tables-section { padding: 110px 4% 60px; }
+  .tables-grid { grid-template-columns: repeat(3, 1fr); }
+  .summary-cards { gap: 14px; }
+}
+
+@media (max-width: 768px) {
+  .tables-section { padding: 100px 4% 100px; }
+  .tables-title { font-size: 1.8rem; }
+  .summary-cards { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .summary-card  { padding: 18px 10px; }
+  .summary-number { font-size: 2rem; }
+  .summary-label  { font-size: 0.8rem; }
+  .tables-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .filter-tabs {
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .selected-banner {
+    flex-direction: column;
+    gap: 14px;
+    width: 92%;
+    text-align: center;
+    padding: 16px 20px;
+    bottom: 16px;
+  }
+  .reserve-btn { width: 100%; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .tables-grid { grid-template-columns: 1fr; }
+  .tables-title { font-size: 1.5rem; }
+  .summary-cards { grid-template-columns: repeat(3, 1fr); }
+  .summary-number { font-size: 1.6rem; }
+  .tables-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+}

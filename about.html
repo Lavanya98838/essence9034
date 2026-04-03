@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="about.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="navbar.css">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,6 +119,46 @@
     window.addEventListener('scroll', function() {
       header.classList.toggle('sticky', window.scrollY > 0);
     });
+  </script>
+  <script>
+    const menuIcon = document.getElementById('menu-icon');
+    const navList  = document.querySelector('.navlist');
+    if (menuIcon && navList) {
+      menuIcon.addEventListener('click', () => {
+        navList.classList.toggle('open');
+        menuIcon.classList.toggle('bx-x');
+      });
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('open');
+          menuIcon.classList.remove('bx-x');
+        });
+      });
+    }
+  </script>
+  <script>
+    // Hamburger menu
+    const menuIcon = document.getElementById('menu-icon');
+    const navList  = document.querySelector('.navlist');
+    if (menuIcon && navList) {
+      menuIcon.addEventListener('click', () => {
+        navList.classList.toggle('open');
+        menuIcon.classList.toggle('bx-x');
+      });
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('open');
+          menuIcon.classList.remove('bx-x');
+        });
+      });
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!navList.contains(e.target) && !menuIcon.contains(e.target)) {
+          navList.classList.remove('open');
+          menuIcon.classList.remove('bx-x');
+        }
+      });
+    }
   </script>
 </body>
 </html>

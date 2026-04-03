@@ -244,3 +244,22 @@ header.sticky {
   justify-content: center;
   font-weight: 700;
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — about.css
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .about-wrapper { width: 90%; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .about { padding: 100px 0 40px; }
+  .about-wrapper { width: 94%; gap: 24px; }
+  .about-card { padding: 24px 20px; }
+  .about-card h2 { font-size: 1.5rem; }
+  .values-grid { grid-template-columns: 1fr; gap: 16px; }
+  .team-grid   { grid-template-columns: 1fr; gap: 20px; }
+}

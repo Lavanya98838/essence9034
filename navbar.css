@@ -1,0 +1,109 @@
+/* =====================================================
+   navbar.css — shared across ALL pages
+   Handles hamburger icon + mobile slide-in nav
+   ===================================================== */
+
+/* Make sure hamburger is hidden on desktop */
+#menu-icon {
+  font-size: 32px;
+  color: var(--text-color, #fff);
+  z-index: 10001;
+  cursor: pointer;
+  display: none !important;
+}
+
+/* ── Tablet (max 1024px) ─────────────────────────── */
+@media (max-width: 1024px) {
+  header {
+    padding: 20px 5% !important;
+  }
+  header.sticky {
+    padding: 12px 5% !important;
+  }
+  .navlist a {
+    margin: 0 12px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* ── Mobile (max 768px) ──────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Show the hamburger icon */
+  #menu-icon {
+    display: block !important;
+  }
+
+  /* Hide cart icon on very small screens to save space */
+  .nav-icons {
+    margin-right: 50px;
+  }
+
+  /* Slide-in nav panel */
+  .navlist {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 75% !important;
+    height: 100vh !important;
+    background: rgba(15, 15, 15, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2rem !important;
+    z-index: 10000 !important;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-left: 1px solid rgba(231, 168, 9, 0.2) !important;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5) !important;
+  }
+
+  /* Open state — triggered by JS adding .open class */
+  .navlist.open {
+    right: 0 !important;
+  }
+
+  .navlist a {
+    font-size: 1.2rem !important;
+    margin: 0 !important;
+    padding: 8px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* Gold accent line on active nav item in mobile menu */
+  .navlist a.active {
+    color: #e7a809 !important;
+  }
+
+  /* Overlay backdrop when menu is open */
+  .navlist.open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    width: 25%;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+  }
+
+  /* Header padding on mobile */
+  header {
+    padding: 16px 4% !important;
+  }
+  header.sticky {
+    padding: 10px 4% !important;
+  }
+}
+
+/* ── Small mobile (max 480px) ────────────────────── */
+@media (max-width: 480px) {
+  .navlist {
+    width: 85% !important;
+  }
+  .navlist a {
+    font-size: 1.1rem !important;
+  }
+}

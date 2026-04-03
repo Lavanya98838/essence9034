@@ -287,3 +287,32 @@ header.sticky {
   text-align: center;
   margin-top: 80px;
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — cart.css
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .cart { padding: 100px 0 40px; }
+  .container { width: 96%; }
+  .cart h2 { font-size: 1.6rem; }
+  .cart-item {
+    width: 100%;
+    flex-direction: row;
+    gap: 14px;
+    padding: 14px;
+  }
+  .cart-item img { width: 70px !important; height: 70px !important; }
+  .remove-from-cart { right: 10px; }
+  .cart-total {
+    width: 96%;
+    margin: 16px auto;
+  }
+  #order-now-btn { width: 90%; padding: 13px; }
+}
+
+@media (max-width: 480px) {
+  .cart-item { flex-direction: column; align-items: flex-start; }
+  .cart-item img { width: 100% !important; height: 160px !important; border-radius: 8px; }
+  .remove-from-cart { top: 14px; right: 14px; transform: none; }
+}
