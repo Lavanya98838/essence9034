@@ -34,7 +34,7 @@
     display: block !important;
   }
 
-  /* Hide cart icon on very small screens to save space */
+  /* Space for hamburger icon */
   .nav-icons {
     margin-right: 50px;
   }
@@ -105,5 +105,17 @@
   }
   .navlist a {
     font-size: 1.1rem !important;
+  }
+  header {
+    padding: 12px 4% !important;
+  }
+  header.sticky {
+    padding: 8px 4% !important;
+  }
+  .logo {
+    font-size: 24px !important;
+  }
+  .logo i {
+    font-size: 22px !important;
   }
 }

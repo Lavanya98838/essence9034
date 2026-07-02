@@ -27,6 +27,7 @@
 body {
     background: var(--bg-color);
     color: var(--text-color);
+    padding-top: 100px;
 }
 
 header {
@@ -391,6 +392,9 @@ span {
 
 /* Tablet — up to 1024px */
 @media (max-width: 1024px) {
+  body {
+    padding-top: 80px;
+  }
   header {
     padding: 20px 5%;
   }
@@ -430,6 +434,9 @@ span {
 
 /* Mobile — up to 768px */
 @media (max-width: 768px) {
+  body {
+    padding-top: 72px;
+  }
   /* Hamburger menu */
   #menu-icon {
     display: block;
@@ -546,8 +553,14 @@ span {
 
 /* Small mobile — up to 480px */
 @media (max-width: 480px) {
+  body { padding-top: 52px; }
   .text-over-image2 h1 { font-size: 1.6rem; }
   .container-box { width: 95%; }
-  header { padding: 16px 4%; }
-  header.sticky { padding: 10px 4%; }
+  header { padding: 12px 4%; }
+  header.sticky { padding: 8px 4%; }
+  .logo { font-size: 24px; }
+  .logo i { font-size: 22px; }
+  #menu-icon { font-size: 28px; }
+  .nav-icons { padding: 6px 12px; }
+  .nav-icons i { font-size: 20px; }
 }
